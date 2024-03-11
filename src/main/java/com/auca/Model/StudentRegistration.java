@@ -1,6 +1,6 @@
 package com.auca.Model;
 
-import com.google.protobuf.Timestamp;
+import java.sql.Timestamp;
 import jakarta.persistence.*;
 
 @Entity

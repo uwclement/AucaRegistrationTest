@@ -10,7 +10,8 @@ public class Teacher {
     private int teacher_id;
     private String first_name;
     private String last_name;
-    private char qualification;
+    @Enumerated(EnumType.STRING)
+    private EQualification qualification;
 //    @OneToMany
 //    @JoinColumn(name ="course")
 //    private Course course;

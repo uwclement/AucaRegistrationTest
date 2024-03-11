@@ -11,6 +11,11 @@
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.format_sql">true</property>
     <!-- Mapping -->
-    <mapping class="com.javatpoint.bean.User"/>
+    <mapping class="com.auca.Model.Teacher"/>
+    <mapping class="com.auca.Model.Academic_Unit"/>
+    <mapping class="com.auca.Model.Course_Definition"/>
+    <mapping class="com.auca.Model.Semester"/>
+    <mapping class="com.auca.Model.Student"/>
+    <mapping class="com.auca.Model.StudentRegistration"/>
   </session-factory>
 </hibernate-configuration>

@@ -2,6 +2,8 @@ package com.auca.Model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name ="academic_unit")
 public class Academic_Unit {
@@ -10,6 +12,11 @@ public class Academic_Unit {
     private int academic_id;
     private char academic_code;
     private String academic_name;
-    private char type;
-    private int parent_id;
+    @Enumerated(EnumType.STRING)
+    private EAcademicUnit type;
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name ="parent_id", nullable = true)
+    private Academic_Unit parent;
+    @OneToMany(mappedBy = "academicUnit")
+    private List<Course> courses;
 }
