@@ -12,8 +12,9 @@ public class Teacher {
     private String last_name;
     @Enumerated(EnumType.STRING)
     private EQualification qualification;
-//    @OneToMany
-//    @JoinColumn(name ="course")
-//    private Course course;
+    @ManyToOne
+    @JoinColumn(name ="course_id")
+    private Course course;
+
 
 }

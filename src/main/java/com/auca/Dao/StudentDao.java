@@ -13,6 +13,7 @@ public class StudentDao {
             session.save(st);
             transaction.commit();
             session.close();
+            return 1;
         }
         catch (Exception ex)
         {
@@ -29,6 +30,7 @@ public class StudentDao {
             session.update(st);
             transaction.commit();
             session.close();
+            return 1;
         }
         catch (Exception ex)
         {
@@ -45,6 +47,7 @@ public class StudentDao {
             session.delete(st);
             transaction.commit();
             session.close();
+            return 1;
         }
         catch (Exception ex)
         {

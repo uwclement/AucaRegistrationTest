@@ -9,9 +9,11 @@ import java.util.List;
 @Table(name="semester")
 public class Semester {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int semester_id;
     private String semsester_name;
    private Timestamp starting_date;
     private LocalDate end_date;
+    @OneToMany(mappedBy = "semester", cascade = CascadeType.ALL)
     private List<Course> courseList;
 }
