@@ -1,15 +1,15 @@
 package com.auca.View;
 
-import com.auca.Dao.StudentDao;
 import com.auca.Implementation.StudentImpl;
 import com.auca.Model.Student;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
-public class AucaVIew {
+public class StudentView {
     public static void main (String[] args) throws ParseException {
         boolean condition = true;
         int studentid;
@@ -99,16 +99,7 @@ public class AucaVIew {
                     if(String.valueOf(studentid).length()!=5){
                         System.out.println("Id should be 5 numbers");
                     }else{
-                        System.out.print("Enter FirstName: ");
-                        firstname = input.next();
-                        System.out.print("Enter LastName: ");
-                        lastname = input.next();
-                        System.out.println("Enter Date of Birth");
-                        DOB = dateFormat.parse(input.next());
                         stu.setStudent_id(studentid);
-                        stu.setFirst_name(firstname);
-                        stu.setLast_name(lastname);
-                        stu.setDate_of_birth(DOB);
                         try {
                             result = imp.deleteStudent(stu);
                             if (result>0){
@@ -121,6 +112,30 @@ public class AucaVIew {
                         }
 
                     }
+                    break;
+                case 4:
+                    try {
+                        System.out.println("The List of All Students");
+                        List<Student> students =imp.displayStudents();
+                        if(students == null){
+                            System.out.println("No Student Found");
+                        }else
+                        {
+                             for (Student stud : students) {
+                                 System.out.println("Student ID: " + stud.getStudent_id());
+                                 System.out.println("First Name: " + stud.getFirst_name());
+                                 System.out.println("Last Name: " + stud.getLast_name());
+                                 System.out.println("Date of Birth: " + stud.getDate_of_birth());
+                                 System.out.println();
+
+                           } ;
+                         }
+                    }catch (Exception ex){
+                        ex.printStackTrace();
+                    }
+                    break;
+                case 0:
+                    System.exit(0);
                     break;
             }
 

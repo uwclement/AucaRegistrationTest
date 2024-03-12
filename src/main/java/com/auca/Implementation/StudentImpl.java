@@ -4,6 +4,8 @@ import com.auca.Dao.StudentDao;
 import com.auca.Model.Student;
 import com.auca.Service.StudentService;
 
+import java.util.List;
+
 public class StudentImpl implements StudentService {
     public StudentImpl() {
     }
@@ -21,5 +23,10 @@ public class StudentImpl implements StudentService {
     @Override
     public int deleteStudent(Student stu) throws Exception {
         return dao.deleteStudent(stu);
+    }
+
+    @Override
+    public List<Student> displayStudents() throws Exception {
+        return dao.displayStudents();
     }
 }

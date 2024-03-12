@@ -4,7 +4,11 @@
   <groupId>org.example</groupId>
   <artifactId>AucaRegistrationTest</artifactId>
   <packaging>war</packaging>
-  <version>1.0-SNAPSHOT</version>
+    <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+    </properties>
+    <version>1.0-SNAPSHOT</version>
   <name>AucaRegistrationTest Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <dependencies>
@@ -30,6 +34,7 @@
       <artifactId>postgresql</artifactId>
       <version>42.6.0</version>
     </dependency>
+
 
     <dependency>
       <groupId>mysql</groupId>
