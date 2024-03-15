@@ -17,6 +17,7 @@
     <mapping class="com.auca.Model.Semester"/>
     <mapping class="com.auca.Model.Student"/>
     <mapping class="com.auca.Model.Course"/>
+    <mapping class="com.auca.Model.Student_Course"/>
     <mapping class="com.auca.Model.StudentRegistration"/>
   </session-factory>
 </hibernate-configuration>

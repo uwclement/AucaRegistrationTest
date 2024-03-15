@@ -18,8 +18,8 @@ public class StudentRegDaoTest {
         List<StudentRegistration> studentRegistration =dao.studentPerSemester(semesterId);
         assertNotNull("Not Null", studentRegistration);
         assertFalse("not empty", studentRegistration.isEmpty());
-       for (StudentRegistration reg :studentRegistration) {
-           assertEquals("Semester id",semesterId, reg.getSemester().getSemester_id());
-       }
+        for (StudentRegistration reg :studentRegistration) {
+            assertEquals("Semester id",semesterId, reg.getSemester().getSemester_id());
+        }
     }
 }

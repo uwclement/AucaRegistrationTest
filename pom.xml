@@ -18,6 +18,11 @@
       <version>4.13.2</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>com.github.junitrunner</groupId>
+      <artifactId>junitrunner-mockito</artifactId>
+      <version>0.0.2</version>
+    </dependency>
 
     <dependency>
       <groupId>org.hibernate.orm</groupId>
@@ -41,6 +46,11 @@
       <artifactId>mysql-connector-java</artifactId>
       <version>8.0.33</version>
     </dependency>
+    <dependency>
+      <groupId>jakarta.el</groupId>
+      <artifactId>jakarta.el-api</artifactId>
+      <version>4.0.0</version>
+    </dependency>
 
     <dependency>
       <groupId>jakarta.servlet</groupId>
@@ -53,6 +63,12 @@
       <artifactId>jakarta.servlet.jsp.jstl</artifactId>
       <version>2.0.0</version>
     </dependency>
+    <dependency>
+      <groupId>org.apache.tomcat</groupId>
+      <artifactId>tomcat-el-api</artifactId>
+      <version>10.0.14</version> <!-- Use the appropriate version -->
+    </dependency>
+
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>jstl</artifactId>

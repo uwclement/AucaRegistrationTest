@@ -3,10 +3,11 @@ package com.auca.Implementation;
 import com.auca.Dao.SemesterDao;
 import com.auca.Dao.StudentDao;
 import com.auca.Dao.StudentRegDao;
-import com.auca.Model.StudentRegistration;
+import com.auca.Model.*;
 import com.auca.Service.StudentRegService;
 
 import java.util.List;
+import java.util.UUID;
 
 public class StudentRegImpl implements StudentRegService {
     public StudentRegImpl() {
@@ -47,5 +48,20 @@ public class StudentRegImpl implements StudentRegService {
     @Override
     public Boolean isSemestertExists(int semeid) throws Exception {
         return dao2.isSemestertExists(semeid);
+    }
+
+    @Override
+    public List<Object[]> StudentPerDepartmentSemester(Academic_Unit dept_id, int sem_id) throws Exception {
+        return dao.StudentPerDepartmentSemester(dept_id,sem_id);
+    }
+
+    @Override
+    public List<Object[]> StudentPerCourseSemester(Course course, Semester seme) throws Exception {
+        return dao.StudentPerCourseSemester(course,seme);
+    }
+
+    @Override
+    public List<Object[]> courseperStudernt(Student student) throws Exception {
+        return dao.courseperStudernt(student);
     }
 }

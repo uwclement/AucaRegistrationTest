@@ -1,19 +1,22 @@
 package com.auca.Model;
 
 import java.sql.Timestamp;
+import java.util.List;
+import java.util.UUID;
 
 import com.auca.Dao.HibernateUtil;
 import jakarta.persistence.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name ="studentRegistration")
 public class StudentRegistration {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "registration_seq")
-    @SequenceGenerator(name = "registration_seq", sequenceName = "studentRegistration_SEQ", allocationSize = 1)
-    private int registration_id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    private UUID registration_id;
 
     private char registration_code;
     private Timestamp registration_date;
@@ -23,29 +26,27 @@ public class StudentRegistration {
     @OneToOne
     @JoinColumn(name = "semester_id")
     private Semester semester;
-    private int department_id;
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Academic_Unit academic_Unit;
+    @ManyToMany
+    @JoinTable( name = "student_course" ,
+    joinColumns = @JoinColumn(name = "registration_id"),
+    inverseJoinColumns = @JoinColumn(name = "course_id"))
+   private List<Course> courses;
 
     public StudentRegistration() {
     }
 
-    public StudentRegistration(int registration_id) {
+    public StudentRegistration(UUID registration_id) {
         this.registration_id = registration_id;
     }
 
-    public StudentRegistration(int registration_id, char registration_code, Timestamp registration_date, Student student, Semester semester, int department_id) {
-        this.registration_id = registration_id;
-        this.registration_code = registration_code;
-        this.registration_date = registration_date;
-        this.student = student;
-        this.semester = semester;
-        this.department_id = department_id;
-    }
-
-    public int getRegistration_id() {
+    public UUID getRegistration_id() {
         return registration_id;
     }
 
-    public void setRegistration_id(int registration_id) {
+    public void setRegistration_id(UUID registration_id) {
         this.registration_id = registration_id;
     }
 
@@ -81,47 +82,19 @@ public class StudentRegistration {
         this.semester = semester;
     }
 
-    public int getDepartment_id() {
-        return department_id;
+    public Academic_Unit getAcademic_Unit() {
+        return academic_Unit;
     }
 
-    public void setDepartment_id(int department_id) {
-        this.department_id = department_id;
-    }
-    public void setStudent(int studentId) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction transaction = null;
-        try {
-            transaction = session.beginTransaction();
-            Student student = session.get(Student.class, studentId);
-            this.student = student;
-            transaction.commit();
-        } catch (Exception ex) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            ex.printStackTrace();
-        } finally {
-            session.close();
-        }
+    public void setAcademic_Unit(Academic_Unit academic_Unit) {
+        this.academic_Unit = academic_Unit;
     }
 
-    public void setSemester(int semester_id) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction transaction = null;
-        try {
-            transaction = session.beginTransaction();
-            Semester semester = session.get(Semester.class, semester_id);
-            this.semester = semester;
-            transaction.commit();
-        } catch (Exception ex) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            ex.printStackTrace();
-        } finally {
-            session.close();
-        }
+    public List<Course> getCourses() {
+        return courses;
     }
 
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
+    }
 }

@@ -1,54 +1,55 @@
 package com.auca.Model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "course")
 public class Course {
     @Id
-    @GeneratedValue( strategy = GenerationType.IDENTITY)
-    private int course_id;
-    private char course_code;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    private UUID course_id;
+    private String course_code;
     private String course_name;
     @ManyToOne
     @JoinColumn(name = "semester_id")
     private Semester semester;
-    private int department_id;
     @ManyToOne
-    @JoinColumn(name = "academic_unit_id")
+    @JoinColumn(name = "department_id")
     private Academic_Unit academic_Unit;
-
 
     public Course() {
     }
 
-    public Course(int course_id) {
+    public Course(UUID course_id) {
         this.course_id = course_id;
     }
 
-    public Course(int course_id, char course_code, String course_name, Semester semester, int department_id) {
+    public Course(UUID course_id, String course_code, String course_name, Semester semester, Academic_Unit academic_Unit, List<StudentRegistration> studentRegistrations) {
         this.course_id = course_id;
         this.course_code = course_code;
         this.course_name = course_name;
         this.semester = semester;
-        this.department_id = department_id;
+        this.academic_Unit = academic_Unit;
     }
 
-    public int getCourse_id() {
+    public UUID getCourse_id() {
         return course_id;
     }
 
-    public void setCourse_id(int course_id) {
+    public void setCourse_id(UUID course_id) {
         this.course_id = course_id;
     }
 
-    public char getCourse_code() {
+    public String getCourse_code() {
         return course_code;
     }
 
-    public void setCourse_code(char course_code) {
+    public void setCourse_code(String course_code) {
         this.course_code = course_code;
     }
 
@@ -68,11 +69,12 @@ public class Course {
         this.semester = semester;
     }
 
-    public int getDepartment_id() {
-        return department_id;
+    public Academic_Unit getAcademic_Unit() {
+        return academic_Unit;
     }
 
-    public void setDepartment_id(int department_id) {
-        this.department_id = department_id;
+    public void setAcademic_Unit(Academic_Unit academic_Unit) {
+        this.academic_Unit = academic_Unit;
     }
+
 }
