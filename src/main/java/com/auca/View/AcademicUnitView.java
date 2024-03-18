@@ -41,7 +41,8 @@ public class AcademicUnitView {
                     academic_code = input.next();
                     System.out.print("Enter Academic name: ");
                     academic_name = input.next();
-                    System.out.print("Enter Type: ");
+                    System.out.print("1 For Program, 2 for Faculty, 3 for Department");
+                    System.out.print("Enter Type:");
                     type = Integer.parseInt(input.next());
 
                     if (academic_code.trim().isEmpty() || academic_name.trim().isEmpty()) {
@@ -187,6 +188,7 @@ public class AcademicUnitView {
                             System.out.println("No Academic Found");
                         } else {
                             for (Academic_Unit units : academicUnits) {
+
                                 System.out.println("Academic ID: " + units.getAcademic_id());
                                 System.out.println("Academic Code: " + units.getAcademic_code());
                                 System.out.println("Academic Name: " + units.getAcademic_name());

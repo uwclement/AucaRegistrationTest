@@ -72,13 +72,15 @@ public class StudentRegDao {
      return null;
     }
 
-    public List<StudentRegistration> studentPerSemester(int semid){
+    public List<Object[]> studentPerSemester(int semid){
         Transaction transaction = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             transaction = session.beginTransaction();
-            String sql ="SELECT DISTINCT sr FROM StudentRegistration sr WHERE sr.semester.semester_id = :semid";
-            List<StudentRegistration> stuPerSem = session.createQuery(sql,StudentRegistration.class).setParameter("semid", semid).list();
+            String sql ="SELECT s.student_id , s.first_name,s.last_name, sr.semester  FROM StudentRegistration sr " +
+                    " Join Student s " +
+                    "WHERE sr.semester.semester_id = :semid";
+            List<Object[]> stuPerSem = session.createQuery(sql).setParameter("semid", semid).list();
             transaction.commit();
             session.close();
             return stuPerSem;
@@ -95,7 +97,7 @@ public class StudentRegDao {
             Transaction transaction = null;
             Session session = HibernateUtil.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-            String hql =  "SELECT sr.student.first_name, sr.student.last_name, c.course_name, sr.semester.semester_name, au.academic_name  " +
+            String hql ="SELECT sr.student.first_name, sr.student.last_name, c.course_name, sr.semester.semester_name, au.academic_name  " +
                     "FROM StudentRegistration sr " +
                     "JOIN sr.courses c " +
                     "JOIN sr.academic_Unit au " +

@@ -10,7 +10,7 @@ public interface StudentRegService {
     int updateRegistration (StudentRegistration stuReg) throws Exception;
     int deleteRegistration (StudentRegistration stuReg) throws Exception;
     List<StudentRegistration> displayRegistration () throws Exception;
-    List<StudentRegistration> studentPerSemester (int semid) throws Exception;
+    List<Object[]> studentPerSemester (int semid) throws Exception;
     Boolean isStudentExists (int studentId) throws Exception;
     Boolean isSemestertExists (int semeid) throws Exception;
     List<Object[]> StudentPerDepartmentSemester(Academic_Unit dept_id, int sem_id) throws Exception;

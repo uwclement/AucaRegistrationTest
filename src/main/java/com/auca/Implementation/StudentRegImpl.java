@@ -36,7 +36,7 @@ public class StudentRegImpl implements StudentRegService {
     }
 
     @Override
-    public List<StudentRegistration> studentPerSemester(int semid) throws Exception {
+    public List<Object[]> studentPerSemester(int semid) throws Exception {
         return dao.studentPerSemester(semid);
     }
 

@@ -6,6 +6,7 @@ import com.auca.Model.Course;
 import com.auca.Model.Semester;
 
 import java.text.ParseException;
+import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -61,7 +62,29 @@ public class CourserView {
                     }
 
                     break;
+                case 4:
+                    try {
+                        System.out.println("The List of All Courses");
+                        List<Course> courses = impl.displayCourse();
+                        if (courses == null) {
+                            System.out.println("No Course Found");
+                        } else {
+                            for (Course course : courses) {
 
+                                System.out.println("Course ID: " + course.getCourse_id());
+                                System.out.println("Course Code: " + course.getCourse_code());
+                                System.out.println("Course Name: " + course.getCourse_name());
+                                System.out.println("Semester : " + course.getSemester());
+                                System.out.println("Department : " + course.getAcademic_Unit());
+                                System.out.println();
+
+                            }
+                            ;
+                        }
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                    break;
                 case 0:
                     System.exit(0);
                     break;

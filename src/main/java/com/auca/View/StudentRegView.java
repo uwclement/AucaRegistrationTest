@@ -35,6 +35,7 @@ public class StudentRegView {
         StudentCourseImpl implStuCour = new StudentCourseImpl();
         Course cr = new Course();
         CourseImpl courseImpl = new CourseImpl();
+        int i;
         while (condition) {
             System.out.println("=========================");
             System.out.println(" Registration System");
@@ -48,6 +49,7 @@ public class StudentRegView {
             System.out.println("7.Search Student Per Course and Semester");
             System.out.println("8.Search Course Per Department and Semester");
             System.out.println("9.Search Course Per Student");
+            System.out.println("10.Student");
             System.out.println("0.Exit");
             System.out.println("----------------------------");
             System.out.print("Choose: ");
@@ -77,12 +79,10 @@ public class StudentRegView {
                     else {
                         System.out.print("Enter Department: ");
                         Academic_Unit deptid = new Academic_Unit(UUID.fromString(input.next()));
-                        System.out.print("Enter Number of Courses Less than 3: ");
+                        System.out.print("Enter Number of Courses (maximum 3): ");
                         NbrCourse = input.nextInt();
-                        if(NbrCourse == 1) {
-                            System.out.print("Enter Course: ");
-                            course = UUID.fromString(input.next());
-                            Course course_id = new Course(course);
+
+                        if (NbrCourse > 0 && NbrCourse <= 3) {
                             stuReg.setRegistration_code(registration_code.charAt(0));
                             stuReg.setRegistration_date(new Timestamp(System.currentTimeMillis()));
                             stuReg.setStudent(student_id);
@@ -94,14 +94,21 @@ public class StudentRegView {
                                 if (result > 0) {
                                     System.out.println("Registration saved Successfully");
                                     registration_id = stuReg.getRegistration_id();
-                                    studentCourse.setStudentRegistration(new StudentRegistration(registration_id));
-                                    studentCourse.setCourse(course_id);
-                                    saveResult = implStuCour.saveStudentCourse(studentCourse);
-                                    if (saveResult>0){
-                                        System.out.println("Registration Course saved Successfully");
-                                    }
-                                    else {
-                                        System.out.println("Registration Course not saved Successfully");
+
+                                    for ( i= 0;i < NbrCourse; i++) {
+                                        System.out.print("Enter Course " + (i + 1) + ": ");
+                                        UUID courseId = UUID.fromString(input.next());
+                                        Course course_id = new Course(courseId);
+
+                                        studentCourse.setStudentRegistration(new StudentRegistration(registration_id));
+                                        studentCourse.setCourse(course_id);
+                                        saveResult = implStuCour.saveStudentCourse(studentCourse);
+
+                                        if (saveResult > 0) {
+                                            System.out.println("Registration Course " + (i + 1) + " saved Successfully");
+                                        } else {
+                                            System.out.println("Registration Course " + (i + 1) + " not saved Successfully");
+                                        }
                                     }
                                 } else {
                                     System.out.println("Registration Not saved");
@@ -109,6 +116,8 @@ public class StudentRegView {
                             } catch (Exception ex) {
                                 ex.printStackTrace();
                             }
+                        } else {
+                            System.out.println("Invalid number of courses. from 1 and 3.");
                         }
                     }
                     break;
@@ -215,24 +224,22 @@ public class StudentRegView {
                     break;
                 case 5:
                     try {
-                        System.out.println("The List of All Registration By Semester");
+                        System.out.println("The List of All Students By Semester");
                         System.out.print("Enter Semester: ");
-//                        semeid = input.next();
-//                        stuReg.getSemester(semeid);
-                        List<StudentRegistration> studRegs = impl.studentPerSemester(1);
+                        semeid = input.next();
+                        List<Object[]> studRegs = impl.studentPerSemester(Integer.parseInt(semeid));
                         if (studRegs == null) {
                             System.out.println("No Registration Found");
                         } else {
-                            for (StudentRegistration reg : studRegs) {
-                                System.out.println("Registration ID: " + reg.getRegistration_id());
-                                System.out.println("Registration Code: " + reg.getRegistration_code());
-                                System.out.println("Registration Date: " + reg.getRegistration_date());
-                                Student stu = reg.getStudent();
-                                System.out.println("Student ID : " + stu.getFirst_name());
-                                Semester semester = reg.getSemester();
-                                System.out.println("Semester : " + semester.getsemester_name());
-                                Academic_Unit department = reg.getAcademic_Unit();
-                                System.out.println("Department : " + department.getAcademic_name());
+                            for (Object [] reg : studRegs) {
+                                int id = (Integer) reg[0];
+                                String fname = (String) reg[1];
+                                String lname = (String) reg[2];
+                                Semester seme = (Semester) reg[3];
+                                System.out.println("Student ID: " + id);
+                                System.out.println("Student FirstName: " + fname);
+                                System.out.println("Student LastNAme: " + lname);
+                                System.out.println("Semester : " + seme.getSemester_id() );
                                 System.out.println();
                             }
                             ;
@@ -244,7 +251,7 @@ public class StudentRegView {
                 case 6:
                     try {
 
-                        System.out.println("The List of All Registration By Department and  Semester");
+                        System.out.println("The List of All Students By Department and  Semester");
                         System.out.print("Enter Department: ");
                         UUID deptid = UUID.fromString(input.next());
                         System.out.print("Enter Semester: ");
@@ -275,7 +282,7 @@ public class StudentRegView {
                 case 7:
                     try {
 
-                        System.out.println("The List of All Registration By Course and Semester");
+                        System.out.println("The List of All Students By Course and Semester");
                         System.out.print("Enter Course: ");
                         UUID course_id = UUID.fromString(input.next());
                         System.out.print("Enter Semester: ");
